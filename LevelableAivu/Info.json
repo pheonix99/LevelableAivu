@@ -2,9 +2,10 @@
   "Id": "LevelableAivu",
   "DisplayName": "Levelable Aivu",
   "Author": "pheonix99",
-  "Version": "0.0.1",
+  "Version": "1.0.0",
   "ManagerVersion": "0.21.3",
   "Requirements": [],
   "AssemblyName": "LevelableAivu.dll",
-  "EntryMethod": "LevelableAivu.Main.Load"
+  "EntryMethod": "LevelableAivu.Main.Load",
+  "HomePage": "https://github.com/pheonix99/LevelableAivu/releases"
 }
