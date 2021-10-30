@@ -1,0 +1,10 @@
+{
+  "Id": "LevelableAivu",
+  "DisplayName": "Levelable Aivu",
+  "Author": "pheonix99",
+  "Version": "0.0.1",
+  "ManagerVersion": "0.21.3",
+  "Requirements": [],
+  "AssemblyName": "LevelableAivu.dll",
+  "EntryMethod": "LevelableAivu.Main.Load"
+}
