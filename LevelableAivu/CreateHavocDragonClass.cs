@@ -8,8 +8,13 @@ using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Blueprints.Facts;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Blueprints.Root;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
+using Kingmaker.Designers.EventConditionActionSystem.Conditions;
+using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
+using Kingmaker.Designers.EventConditionActionSystem.Events;
 using Kingmaker.Designers.Mechanics.Buffs;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
@@ -124,19 +129,25 @@ namespace LevelableAivu.Create
                     x.DeactivateImmediately = true;
 
                 });
-
+                BlueprintFeature AivuSizeUpToMedium = Resources.GetBlueprint<BlueprintFeature>("50853b0623b844ac86129db459907797");
+                AivuSizeUpToMedium.SetName("Aivu Size Up");
+                AivuSizeUpToMedium.SetDescription("Aivu Is Now Medium Size");
+                AivuSizeUpToMedium.HideInCharacterSheetAndLevelUp = false;
+                AivuSizeUpToMedium.HideInUI = false;
+                /*
                 BlueprintFeature AivuSizeUpToMedium = Helpers.CreateBlueprint<BlueprintFeature>("AivuSmallToMedium", x =>
                 {
                     x.SetName("Aivu Size Up");
                     x.SetDescription("Aivu Is Now Medium Size");
-                    x.AddComponent(Helpers.Create<ChangeUnitSize>(y =>
+                     x.AddComponent(Helpers.Create<ChangeUnitSize>(y =>
                     {
                         y.SizeDelta = 1;
-
+                        
 
                     }));
+                    
 
-                });
+                });*/
 
 
 
@@ -235,7 +246,7 @@ namespace LevelableAivu.Create
                     bp.m_SignatureAbilities = new BlueprintFeatureReference[] { };
                     bp.ClassSkills = new Kingmaker.EntitySystem.Stats.StatType[]
                     {
-                    StatType.SkillAthletics, StatType.SkillMobility, StatType.SkillPerception, StatType.SkillPersuasion, StatType.SkillLoreReligion, StatType.SkillKnowledgeArcana, StatType.SkillStealth, StatType.SkillLoreNature
+                    StatType.SkillAthletics, StatType.SkillMobility, StatType.SkillPerception, StatType.SkillPersuasion, StatType.SkillLoreReligion, StatType.SkillKnowledgeArcana, StatType.SkillStealth, StatType.SkillLoreNature, StatType.SkillKnowledgeWorld, StatType.SkillUseMagicDevice, StatType.SkillStealth
                     };
                     bp.m_Spellbook = HavocDragonSpellbookLoaded.ToReference<BlueprintSpellbookReference>();
                     bp.AddComponent(Helpers.Create<PrerequisiteFeature>(x =>
@@ -336,19 +347,16 @@ namespace LevelableAivu.Create
 
 
                 });
-                BlueprintFeature AivuSizeUpToLarge = Helpers.CreateBlueprint<BlueprintFeature>("AivuMediumToLarge", x =>
-                {
-                    x.SetName("Aivu Size Up");
-                    x.SetDescription("Aivu Is Now Large Size");
-                    x.AddComponent(Helpers.Create<ChangeUnitSize>(y =>
-                    {
-                        y.SizeDelta = 1;
-
-
-                    }));
-
-                });
+                BlueprintFeature AivuSizeUpToLarge = Resources.GetBlueprint<BlueprintFeature>("600c4d652b6e4684a7a4b77946903c30");
+                AivuSizeUpToLarge.SetName("Aivu Size Up");
+                AivuSizeUpToLarge.SetDescription("Aivu Is Now Large Size");
+                AivuSizeUpToLarge.HideInCharacterSheetAndLevelUp = false;
+                AivuSizeUpToLarge.HideInUI = false;
                 BlueprintFeature HeroicAura = Resources.GetBlueprint<BlueprintFeature>("bb0be011191b77f418d2225399109f0c");
+                
+
+                
+                
 
                 #endregion
 
@@ -383,7 +391,7 @@ namespace LevelableAivu.Create
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, AivuSizeUpToMedium);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
-                AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
+                AddToClasslLevelEntry(HavocDragonProgressionAdded, 6, AivuSizeUpToLarge);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 8, AzataDragonDR2);
 
