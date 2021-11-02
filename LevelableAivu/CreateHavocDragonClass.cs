@@ -391,7 +391,7 @@ namespace LevelableAivu.Create
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, AivuSizeUpToMedium);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
-                AddToClasslLevelEntry(HavocDragonProgressionAdded, 6, AivuSizeUpToLarge);
+                AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 8, AzataDragonDR2);
 
