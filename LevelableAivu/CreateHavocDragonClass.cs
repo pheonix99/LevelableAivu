@@ -134,21 +134,19 @@ namespace LevelableAivu.Create
                 AivuSizeUpToMedium.SetDescription("Aivu Is Now Medium Size");
                 AivuSizeUpToMedium.HideInCharacterSheetAndLevelUp = false;
                 AivuSizeUpToMedium.HideInUI = false;
-                /*
-                BlueprintFeature AivuSizeUpToMedium = Helpers.CreateBlueprint<BlueprintFeature>("AivuSmallToMedium", x =>
+                
+                BlueprintFeature AivuSizeUpToMediumDummy = Helpers.CreateBlueprint<BlueprintFeature>("AivuSmallToMedium", x =>
                 {
-                    x.SetName("Aivu Size Up");
-                    x.SetDescription("Aivu Is Now Medium Size");
-                     x.AddComponent(Helpers.Create<ChangeUnitSize>(y =>
-                    {
-                        y.SizeDelta = 1;
-                        
+                    x.SetName("Aivu Size Up Dummy");
+                    x.SetDescription("If you see this, respec");
+                  
+                });
+                BlueprintFeature AivuSizeUpToLargeDummy = Helpers.CreateBlueprint<BlueprintFeature>("AivuMediumToLarge", x =>
+                {
+                    x.SetName("Aivu Size Up Dummy");
+                    x.SetDescription("If you see this, respec");
 
-                    }));
-                    
-
-                });*/
-
+                });
 
 
 
