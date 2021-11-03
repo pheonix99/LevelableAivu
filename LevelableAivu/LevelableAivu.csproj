@@ -94,7 +94,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AivuSizeFix.cs" />
     <Compile Include="Attributes.cs" />
+    <Compile Include="VariableBaseSizeGetter.cs" />
     <Compile Include="FinishingTouches.cs" />
     <Compile Include="Config\Blueprints.cs" />
     <Compile Include="Config\ICollapsableGroup.cs" />

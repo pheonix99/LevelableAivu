@@ -94,7 +94,7 @@ namespace LevelableAivu.Create
 
             static void BuildHavocDragonClasses()
             {
-
+                BlueprintUnit AivuUnitLoaded = Resources.GetBlueprint<BlueprintUnit>("32a037e97c3d5c54b85da8f639616c57");
                 AivuUsesMythixXPNew = Helpers.CreateBlueprint<BlueprintFeature>("AivuUsesMythicXP", x =>
                 {
 
@@ -134,12 +134,32 @@ namespace LevelableAivu.Create
                 AivuSizeUpToMedium.SetDescription("Aivu Is Now Medium Size");
                 AivuSizeUpToMedium.HideInCharacterSheetAndLevelUp = false;
                 AivuSizeUpToMedium.HideInUI = false;
-                
+           
+                ChangeUnitSize mediumMechanic = AivuSizeUpToMedium.Components.OfType<ChangeUnitSize>().FirstOrDefault();
+                if (mediumMechanic != null)
+                {
+
+                    
+                    mediumMechanic.SizeDelta = 0;
+                    AivuSizeUpToMedium.AddComponent(new VariableBaseSize()
+                    {
+                        Shift = 1
+                    });
+
+                    Main.LogPatch("Patched Size", AivuSizeUpToMedium);
+                    
+                }
+                else
+                {
+                    Main.Log("Medium Mechanic not found");
+                }
+
+
                 BlueprintFeature AivuSizeUpToMediumDummy = Helpers.CreateBlueprint<BlueprintFeature>("AivuSmallToMedium", x =>
                 {
                     x.SetName("Aivu Size Up Dummy");
                     x.SetDescription("If you see this, respec");
-                  
+
                 });
                 BlueprintFeature AivuSizeUpToLargeDummy = Helpers.CreateBlueprint<BlueprintFeature>("AivuMediumToLarge", x =>
                 {
@@ -222,7 +242,7 @@ namespace LevelableAivu.Create
                         x.m_Feature = AivuUsesMythixXPNew.ToReference<BlueprintFeatureReference>();
                     }));
 
-                   
+
 
                 });
 
@@ -350,11 +370,33 @@ namespace LevelableAivu.Create
                 AivuSizeUpToLarge.SetDescription("Aivu Is Now Large Size");
                 AivuSizeUpToLarge.HideInCharacterSheetAndLevelUp = false;
                 AivuSizeUpToLarge.HideInUI = false;
-                BlueprintFeature HeroicAura = Resources.GetBlueprint<BlueprintFeature>("bb0be011191b77f418d2225399109f0c");
-                
+                ChangeUnitSize largeMechanic = AivuSizeUpToLarge.Components.OfType<ChangeUnitSize>().FirstOrDefault();
 
-                
-                
+
+
+
+                if (largeMechanic != null)
+                {
+
+                    largeMechanic.SizeDelta = 0;
+                    AivuSizeUpToLarge.AddComponent(new VariableBaseSize()
+                    {
+                        Shift = 1,
+                        
+                    });
+                    
+                    Main.LogPatch("Patched Size", AivuSizeUpToLarge);
+                    
+                }
+                else
+                {
+                    Main.Log("LargeMechanic not found");
+                }
+                BlueprintFeature HeroicAura = Resources.GetBlueprint<BlueprintFeature>("bb0be011191b77f418d2225399109f0c");
+
+
+
+
 
                 #endregion
 
@@ -381,15 +423,30 @@ namespace LevelableAivu.Create
 
 
 
+                //int mediumLev = 2;
+                //int largeLev = 3;
+                int mediumLev = 16;
+                int largeLev = 26;
 
 
 
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 1, DragonType);
 
-                AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, AivuSizeUpToMedium);
+                AddToClasslLevelEntry(HavocDragonProgressionAdded, mediumLev, AivuSizeUpToMedium);
+                if (largeLev < 21)
+                {
+                    AddToClasslLevelEntry(HavocDragonProgressionAdded, largeLev, AivuSizeUpToLarge);
+                }
+                else
+                {
+                    AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, largeLev - 20, AivuSizeUpToLarge);
+                }
+                
+
+                //AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, AivuSizeUpToMedium);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
-                AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
+                //AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 8, AzataDragonDR2);
 
