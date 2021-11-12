@@ -110,7 +110,7 @@ namespace LevelableAivu.Create
                 });
 
                 BlueprintAbility HavocBreathLoaded = Resources.GetBlueprint<BlueprintAbility>("42a9104e5cff51f46996d7d1ad65c0a6");
-
+                BlueprintFeature SmartBreathWeapon = Resources.GetBlueprint<BlueprintFeature>("491c677a0a602c34fbd9530ff53d6d4a");
                 BlueprintBuff DragonFearIconSourceLoaded = Helpers.GetBlueprint<BlueprintBuff>("c0e8f767f87ac354495865ce3dc3ee46");
 
 
@@ -441,9 +441,10 @@ namespace LevelableAivu.Create
                 {
                     AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, largeLev - 20, AivuSizeUpToLarge);
                 }
-                
+
 
                 //AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, AivuSizeUpToMedium);
+                AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, SmartBreathWeapon);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
                 //AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
