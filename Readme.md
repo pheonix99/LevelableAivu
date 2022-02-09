@@ -3,11 +3,10 @@
 What it does:
 You can now pick what feats and spells Aivu takes on levelup.
 Aivu can now equip animal companion specific items if other requirements are met.
-Aivu's dragonfear is a toggle.
+
 
 
 Optional Components:
-Aivu can take barding proficiency feats
 Aivu's spell list includes the bard list per TT havoc dragons.
 
 Installation and Compatability considerations:
@@ -21,6 +20,8 @@ Balance considerations:
 
 Aivu was already really powerful, being essentially party member number seven. Being able to optimize her build and pick her spells and give her armor will only make her stronger.
 
+Known Display issues:
+The spell access line in the progression shows level 7/8/9 access starting at level 15. Works fine in practice, ignore.
+
 Permissions:
 Feel free to borrow the code and integrate into your own mod, just give me a shoutout.
-

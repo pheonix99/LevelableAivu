@@ -43,6 +43,7 @@ namespace LevelableAivu.Config
         {
             LoadSettings("Settings.json", ref Settings);
             LoadSettings("Blueprints.json", ref Blueprints);
+            LoadLocalization();
         }
 
         public static void LoadLocalization()
