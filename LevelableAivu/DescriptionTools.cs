@@ -6,6 +6,11 @@ namespace LevelableAivu
 {
     static class DescriptionTools
     {
+        public static string StripEncyclopediaTags(this string str)
+        {
+            return Regex.Replace(str, "{.*?}", string.Empty);
+        }
+
         private static readonly EncyclopediaEntry[] EncyclopediaEntries = new EncyclopediaEntry[] {
             new EncyclopediaEntry {
                 Entry = "Strength",

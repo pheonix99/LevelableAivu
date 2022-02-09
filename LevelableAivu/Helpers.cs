@@ -5,12 +5,15 @@ using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.Localization;
+using Kingmaker.Localization.Shared;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.UnitLogic.Mechanics.Properties;
 using Kingmaker.Utility;
 using LevelableAivu.Config;
+using LevelableAivu.Localization;
+using ModKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,33 +57,30 @@ namespace LevelableAivu
         }
 
 
-        // All localized strings created in this mod, mapped to their localized key. Populated by CreateString.
-        static Dictionary<String, LocalizedString> textToLocalizedString = new Dictionary<string, LocalizedString>();
-        public static LocalizedString CreateString(string key, string value)
+        public static LocalizedString CreateString(string simpleName, string text, Locale locale = Locale.enGB, bool shouldProcess = false)
         {
             // See if we used the text previously.
             // (It's common for many features to use the same localized text.
             // In that case, we reuse the old entry instead of making a new one.)
-            LocalizedString localized;
-            if (textToLocalizedString.TryGetValue(value, out localized))
+            string strippedText = text.StripHTML().StripEncyclopediaTags();
+            MultiLocalizationPack.MultiLocaleString multiLocalized;
+            if (ModSettings.ModLocalizationPack.TryGetText(strippedText, out multiLocalized))
             {
-                return localized;
+                return multiLocalized.LocalizedString;
             }
-            var strings = LocalizationManager.CurrentPack.Strings;
-            String oldValue;
-            if (strings.TryGetValue(key, out oldValue) && value != oldValue)
-            {
+#if false
+            if (ModSettings.ModLocalizationPack.Ids.TryGetValue(id, out multiLocalized)) {
 #if DEBUG
-                Main.LogDebug($"Info: duplicate localized string `{key}`, different text.");
+                multiLocalized.SetText(locale, text.StripHTML().StripEncyclopediaTags());
+                multiLocalized.ProcessTemplates = shouldProcess;
 #endif
+                return multiLocalized.LocalizedString;
             }
-            strings[key] = value;
-            localized = new LocalizedString
-            {
-                m_Key = key
-            };
-            textToLocalizedString[value] = localized;
-            return localized;
+#endif
+            multiLocalized = new MultiLocalizationPack.MultiLocaleString(simpleName, strippedText, shouldProcess, locale);
+            Main.LogDebug($"WARNING: Generated New Localizaed String: {multiLocalized.Key}:{multiLocalized.SimpleName}");
+            ModSettings.ModLocalizationPack.AddString(multiLocalized);
+            return multiLocalized.LocalizedString;
         }
 
         public static ContextRankConfig CreateContextRankConfig(ContextRankBaseValueType baseValueType = ContextRankBaseValueType.CasterLevel,

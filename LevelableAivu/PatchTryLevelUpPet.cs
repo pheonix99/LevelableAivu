@@ -27,8 +27,8 @@ namespace LevelableAivu
         static bool Prefix(AddPet __instance)
         {
 
-            
-            
+
+            Main.Log("Levelable Aivu AddPet override started");
             if (__instance.Type != PetType.AzataHavocDragon)
             {
 

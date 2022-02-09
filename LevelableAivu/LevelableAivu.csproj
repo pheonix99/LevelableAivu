@@ -68,6 +68,9 @@
     <Reference Include="Owlcat.Runtime.Core">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Pathfinder Second Adventure\Wrath_Data\Managed\Owlcat.Runtime.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Owlcat.Runtime.Validation">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Pathfinder Second Adventure\Wrath_Data\Managed\Owlcat.Runtime.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -96,6 +99,7 @@
   <ItemGroup>
     <Compile Include="AivuSizeFix.cs" />
     <Compile Include="Attributes.cs" />
+    <Compile Include="Localization\MultiLocalizationPack.cs" />
     <Compile Include="VariableBaseSizeGetter.cs" />
     <Compile Include="FinishingTouches.cs" />
     <Compile Include="Config\Blueprints.cs" />
@@ -120,6 +124,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Config\Blueprints.json" />
     <EmbeddedResource Include="Config\Settings.json" />
+    <EmbeddedResource Include="Localization\LocalizationPack.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

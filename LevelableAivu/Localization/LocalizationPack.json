@@ -1,0 +1,130 @@
+{
+  "LocalizedStrings": [
+    {
+      "Key": "122665bfd8e543e9b53624b352e238f2",
+      "SimpleName": "AivuDragonfearFeature.Description",
+      "ProcessTemplates": false,
+      "enGB": "Whenever an opponent with fewer hit dice than Aivu comes within a 30 feet range of her, they must make a Will saving throw. If it fails, the opponent becomes shaken (or, if they have less than 5 hit dice, panicked) for 5d6 rounds. A successful saving throw makes the creature immune to Aivu's Frightful Presence for 24 hours. This is a mind-affecting fear effect."
+    },
+    {
+      "Key": "c6319556ef6f4aa39fbe84aa1a8006ce",
+      "SimpleName": "AivuDragonfearFeature.Name",
+      "ProcessTemplates": false,
+      "enGB": "Frightful Presence"
+    },
+    {
+      "Key": "dfd0c1e70bff4d91b8ddbd7bf9be54c1",
+      "SimpleName": "AivuDragonfearToggle.Description",
+      "ProcessTemplates": false,
+      "enGB": "Aivu becomes very scary. Opponents within range may become frightened or shaken. Opponents with less than Aivu's HD within 30 feet will be shaken if they fail a will save - chaff with less then 4 HD are friegtened."
+    },
+    {
+      "Key": "0288b0af23bb4566bc89044cac5c8eef",
+      "SimpleName": "AivuDragonfearToggle.Name",
+      "ProcessTemplates": false,
+      "enGB": "Havoc Dragonfear"
+    },
+    {
+      "Key": "b1ba42f15999490ea02051dec89c71e2",
+      "SimpleName": "AivuDRTier1.Description",
+      "ProcessTemplates": false,
+      "enGB": "DR 5/Lawful"
+    },
+    {
+      "Key": "d43b507ff5074a37b0aa65218c670f6f",
+      "SimpleName": "AivuDRTier1.Name",
+      "ProcessTemplates": false,
+      "enGB": "Havoc Dragon DR, Lesser"
+    },
+    {
+      "Key": "11ab1d00403548a3aad76e87d2768da7",
+      "SimpleName": "AivuDRTier2.Description",
+      "ProcessTemplates": false,
+      "enGB": "DR 15/Lawful"
+    },
+    {
+      "Key": "dd5bf742411747f28c8d54d7688259e8",
+      "SimpleName": "AivuDRTier2.Name",
+      "ProcessTemplates": false,
+      "enGB": "Havoc Dragon DR"
+    },
+    {
+      "Key": "85581dc54f9e4b1eb234eab85c322201",
+      "SimpleName": "AivuDRTier3.Description",
+      "ProcessTemplates": false,
+      "enGB": "DR 20/Lawful"
+    },
+    {
+      "Key": "25e38e6b124a45a0add12de7122257e3",
+      "SimpleName": "AivuDRTier3.Name",
+      "ProcessTemplates": false,
+      "enGB": "Havoc Dragon DR, Greater"
+    },
+    {
+      "Key": "5c159827d1074bafbde41c9008d813ed",
+      "SimpleName": "AivuSmallToMedium.Description",
+      "ProcessTemplates": false,
+      "enGB": "If you see this, respec"
+    },
+    {
+      "Key": "416b26e83fc1409797ed4e3914f47cf0",
+      "SimpleName": "AivuSmallToMedium.Name",
+      "ProcessTemplates": false,
+      "enGB": "Aivu Size Up Dummy"
+    },
+    {
+      "Key": "5f8a2fee534e4d4b9fbe382eaa387cd2",
+      "SimpleName": "AivuUsesMythicXP.Description",
+      "ProcessTemplates": false,
+      "enGB": "Aivu is amped up by Azata Mythic Power"
+    },
+    {
+      "Key": "f13076e83dac430b8ca8594051211be5",
+      "SimpleName": "AivuUsesMythicXP.Name",
+      "ProcessTemplates": false,
+      "enGB": "Aivu Mythic Powers"
+    },
+    {
+      "Key": "837122d092bf441d83ab385414c640f8",
+      "SimpleName": "DragonAzataFeatureTierIIIPrefab.Description",
+      "ProcessTemplates": false,
+      "enGB": "Aivu Is Now Large Size"
+    },
+    {
+      "Key": "f1ba248fb047413cb6c424d383b7c86b",
+      "SimpleName": "DragonAzataFeatureTierIIPrefab.Description",
+      "ProcessTemplates": false,
+      "enGB": "Aivu Is Now Medium Size"
+    },
+    {
+      "Key": "f9c3818227fc4a7591510ff2d1cb70e6",
+      "SimpleName": "DragonAzataFeatureTierIIPrefab.Name",
+      "ProcessTemplates": false,
+      "enGB": "Aivu Size Up"
+    },
+    {
+      "Key": "44a466c1f2794da1bb6347f2831f6341",
+      "SimpleName": "DragonAzataSpellbook.Name",
+      "ProcessTemplates": false,
+      "enGB": "Havoc Dragon"
+    },
+    {
+      "Key": "8f31d2d1c8724172801757228da83bc9",
+      "SimpleName": "HavocDragon20To40.Name",
+      "ProcessTemplates": false,
+      "enGB": "Mythic Havoc Dragon"
+    },
+    {
+      "Key": "47332c4eadd143b8aec3b436164898f9",
+      "SimpleName": "HavocDragonClassDesc.Name",
+      "ProcessTemplates": false,
+      "enGB": "A dragon is a reptilelike creature, usually winged, with magical or unusual abilities"
+    },
+    {
+      "Key": "a8b72db8bc134d18bb16d6c7ee28a1cc",
+      "SimpleName": "HavocDragonProgress.Name",
+      "ProcessTemplates": false,
+      "enGB": ""
+    }
+  ]
+}

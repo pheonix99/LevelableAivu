@@ -18,9 +18,11 @@ using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.UnitLogic.Mechanics.Components;
 using LevelableAivu.Config;
 using System;
 using System.Collections.Generic;
@@ -134,12 +136,12 @@ namespace LevelableAivu.Create
                 AivuSizeUpToMedium.SetDescription("Aivu Is Now Medium Size");
                 AivuSizeUpToMedium.HideInCharacterSheetAndLevelUp = false;
                 AivuSizeUpToMedium.HideInUI = false;
-           
+
                 ChangeUnitSize mediumMechanic = AivuSizeUpToMedium.Components.OfType<ChangeUnitSize>().FirstOrDefault();
                 if (mediumMechanic != null)
                 {
 
-                    
+
                     mediumMechanic.SizeDelta = 0;
                     AivuSizeUpToMedium.AddComponent(new VariableBaseSize()
                     {
@@ -147,7 +149,7 @@ namespace LevelableAivu.Create
                     });
 
                     Main.LogPatch("Patched Size", AivuSizeUpToMedium);
-                    
+
                 }
                 else
                 {
@@ -172,12 +174,12 @@ namespace LevelableAivu.Create
 
                 BlueprintFeature AivuDragonfear = Helpers.CreateBlueprint<BlueprintFeature>("AivuDragonfearFeature", x =>
                 {
-                    x.SetName("Havoc Dragonfear");
-                    x.SetDescription("Aivu becomes very scary. Opponents within range may become frightened or shaken. Opponents with less than Aivu's HD within 30 feet will be shaken if they fail a will save - chaff with less then 4 HD are friegtened.");
+                    x.SetName("Frightful Presence");
+                    x.SetDescription("Whenever an opponent with fewer hit dice than Aivu comes within a 30 feet range of her, they must make a Will saving throw. If it fails, the opponent becomes shaken (or, if they have less than 5 hit dice, panicked) for 5d6 rounds. A successful saving throw makes the creature immune to Aivu's Frightful Presence for 24 hours. This is a mind-affecting fear effect.");
                     x.AddComponent(Helpers.Create<AddFacts>(c =>
                     {
                         c.m_Facts = new BlueprintUnitFactReference[] {
-                        AivuDragonfearAbility.ToReference<BlueprintUnitFactReference>(),
+                        Resources.GetBlueprint<BlueprintActivatableAbility>("a2e0cbebe3bb4a90a22b75d3c22d952c").ToReference<BlueprintUnitFactReference>(),
                     };
                     }));
 
@@ -220,8 +222,10 @@ namespace LevelableAivu.Create
                     bp.m_Progression = HavocDragonProgressionAdded.ToReference<BlueprintProgressionReference>();
                     bp.m_SignatureAbilities = new BlueprintFeatureReference[]
                     {
-                            HavocBreathLoaded.ToReference<BlueprintFeatureReference>(), AivuDragonfear.ToReference<BlueprintFeatureReference>()
+                            HavocBreathLoaded.ToReference<BlueprintFeatureReference>()
                     };
+
+
 
                     bp.HideIfRestricted = true;
                     bp.LocalizedName = Helpers.CreateString(bp.name + ".Name", "Havoc Dragon");
@@ -382,11 +386,11 @@ namespace LevelableAivu.Create
                     AivuSizeUpToLarge.AddComponent(new VariableBaseSize()
                     {
                         Shift = 1,
-                        
+
                     });
-                    
+
                     Main.LogPatch("Patched Size", AivuSizeUpToLarge);
-                    
+
                 }
                 else
                 {
@@ -445,6 +449,7 @@ namespace LevelableAivu.Create
 
                 //AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, AivuSizeUpToMedium);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 16, SmartBreathWeapon);
+
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
                 //AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
@@ -459,7 +464,7 @@ namespace LevelableAivu.Create
                 HavocDragonT2ProgressionAdded.m_Classes = new BlueprintProgression.ClassWithLevel[] { new BlueprintProgression.ClassWithLevel { m_Class = MythicHavocDragon.ToReference<BlueprintCharacterClassReference>() } };
 
 
-
+                HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class = HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class.AppendToArray(HavocDragon.ToReference<BlueprintCharacterClassReference>(), MythicHavocDragon.ToReference<BlueprintCharacterClassReference>());
                 BlueprintRoot root = Resources.GetBlueprint<BlueprintRoot>("2d77316c72b9ed44f888ceefc2a131f6");
                 if (ModSettings.Settings.settings.GroupIsDisabled())
                     return;

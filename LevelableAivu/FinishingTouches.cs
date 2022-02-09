@@ -34,7 +34,7 @@ namespace LevelableAivu
                 {
                     AlterSpellBook();
                     AlterCompanionClasses();
-                    AlterBarding();
+                    //AlterBarding();
                 }
 
 
