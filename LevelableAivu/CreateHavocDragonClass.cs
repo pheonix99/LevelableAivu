@@ -19,6 +19,7 @@ using Kingmaker.EntitySystem.Stats;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
@@ -61,7 +62,33 @@ namespace LevelableAivu.Create
                 BuildHavocDragonClasses();
                 RemoveUnneededElements();
                 AddFlagsToAivu();
+                FixHeroismAuraSFX();
 
+            }
+
+            private static void FixHeroismAuraSFX()
+            {
+
+                var auraSource = Resources.GetBlueprint<BlueprintBuff>("17831f3fa25cf52458a34b0acc034b40");
+                var aoe = Resources.GetBlueprint<BlueprintAbilityAreaEffect>("ce6652b6fb8d1504181a9f3e2aa520e3");
+                var baseHeroism = Resources.GetBlueprint<BlueprintBuff>("87ab2fed7feaaff47b62a3320a57ad8d");
+                auraSource.FxOnStart = auraSource.FxOnRemove;
+                var knockoff = Helpers.CreateBlueprint<BlueprintBuff>("AivuHeroismBuff", x=> {
+                    x.m_Flags = baseHeroism.m_Flags;
+                    x.m_DisplayName = baseHeroism.m_DisplayName;
+                    x.m_Description = baseHeroism.m_Description;
+                    x.m_DescriptionShort = baseHeroism.m_DescriptionShort;
+                    x.m_Icon = baseHeroism.m_Icon;
+                    x.Components = baseHeroism.Components;
+                    
+                });
+                var applier = aoe.Components.OfType<AbilityAreaEffectBuff>().FirstOrDefault();
+
+                if (applier != null)
+                {
+
+                    applier.m_Buff = knockoff.ToReference<BlueprintBuffReference>();
+                }
             }
 
             private static void AddFlagsToAivu()
@@ -71,8 +98,8 @@ namespace LevelableAivu.Create
 
 
                 AivuUnitLoaded.m_AddFacts = AivuUnitLoaded.m_AddFacts.AddToArray(AivuUsesMythixXPNew.ToReference<BlueprintUnitFactReference>());
-
-                AivuUnitLoaded.RemoveComponents<LockEquipmentSlot>();
+               
+                AivuUnitLoaded.RemoveComponents<LockEquipmentSlot>(x=>x.m_SlotType == LockEquipmentSlot.SlotType.Armor);
 
 
 
@@ -453,7 +480,8 @@ namespace LevelableAivu.Create
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
                 //AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
-                AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
+                AddToClasslLevelEntry(HavocDragonProgressionAdded, 6, HeroicAura);
+               // AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 8, AzataDragonDR2);
 
 

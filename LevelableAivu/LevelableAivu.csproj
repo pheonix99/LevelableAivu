@@ -114,7 +114,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="ModifyEquipmentRestrictions.cs" />
+    <Compile Include="ModifyEquipmentRestrictionsHasAnyClassFromList.cs" />
     <Compile Include="PatchTryLevelUpPet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />

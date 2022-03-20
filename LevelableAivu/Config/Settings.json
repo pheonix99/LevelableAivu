@@ -7,10 +7,6 @@
         "Enabled": true,
         "Description": "Give Aivu Bard Spell Access Per Tabletop Havoc Dragons"
 
-      },
-      "BardingForAivu": {
-        "Enabled": true,
-        "Description": "Give Aivu Access To Barding Proficiency"
       }
 
     }

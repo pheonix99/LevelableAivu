@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Kingmaker.Assets.UnitLogic.Mechanics.Properties;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
@@ -9,6 +10,8 @@ using Kingmaker.EntitySystem.Entities;
 using Kingmaker.UI.MVVM._VM.CharGen;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Class.LevelUp;
+using Kingmaker.UnitLogic.Mechanics.Properties;
+using Kingmaker.Utility;
 using LevelableAivu.Config;
 using System;
 using System.Collections.Generic;
@@ -34,11 +37,31 @@ namespace LevelableAivu
                 {
                     AlterSpellBook();
                     AlterCompanionClasses();
-                    //AlterBarding();
+                    AlterBarding();
+                    FixDestructiveDispel();
                 }
 
 
 
+
+            }
+
+            private static void FixDestructiveDispel()
+            {
+                BlueprintCharacterClass HavocDragonAdded = Resources.GetModBlueprint<BlueprintCharacterClass>("HavocDragonClass");
+                BlueprintCharacterClass HavocDragon2Added = Resources.GetModBlueprint<BlueprintCharacterClass>("HavocDragonClass20To40");
+                var dispelProp = Resources.GetBlueprint<BlueprintUnitProperty>("13e4f1dd08954723b173335a54b48746");
+                var attributeProp = dispelProp.Components.OfType<MaxCastingAttributeGetter>().FirstOrDefault();
+                if (attributeProp != null)
+                {
+                    attributeProp.m_Classes = attributeProp.m_Classes.AddItem(HavocDragonAdded.ToReference<BlueprintCharacterClassReference>()).ToArray();
+                }
+                var levelProp = dispelProp.Components.OfType<SummClassLevelGetter>().FirstOrDefault();
+                if (levelProp != null)
+                {
+                    levelProp.m_Class = levelProp.m_Class.AddItem(HavocDragonAdded.ToReference<BlueprintCharacterClassReference>()).ToArray();
+                    levelProp.m_Class = levelProp.m_Class.AddItem(HavocDragon2Added.ToReference<BlueprintCharacterClassReference>()).ToArray();
+                }
 
             }
 
@@ -117,8 +140,7 @@ namespace LevelableAivu
 
             static void AlterBarding()
             {
-                if (ModSettings.Settings.settings.IsDisabled("BardingForAivu"))
-                    return;
+               
 
                 BlueprintCharacterClass HavocDragonAdded = Resources.GetModBlueprint<BlueprintCharacterClass>("HavocDragonClass");
 
