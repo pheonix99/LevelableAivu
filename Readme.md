@@ -16,9 +16,10 @@ Any mod that alters any portion of Aivu's existing progression will be non-funct
 
 New items and spells should work just fine.
 
+
 Balance considerations:
 
-Aivu was already really powerful, being essentially party member number seven. Being able to optimize her build and pick her spells and give her armor will only make her stronger.
+Aivu has been nerfed pretty heavily, both casting and breath. This should make that tolerable.
 
 Known Display issues:
 The spell access line in the progression shows level 7/8/9 access starting at level 15. Works fine in practice, ignore.

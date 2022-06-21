@@ -23,6 +23,7 @@ using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using LevelableAivu.Config;
 using System;
@@ -309,8 +310,21 @@ namespace LevelableAivu.Create
                         x.Level = 20;
                     }));
                 });
+                
+                HavocDragon.AddComponent<PrerequisiteClassLevel>(x =>
+                {
+                    x.Not = true;
+                    x.m_CharacterClass = MythicHavocDragon.ToReference<BlueprintCharacterClassReference>();
+                    x.Level = 1;
 
+                });
+                HavocDragon.AddComponent<PrerequisiteClassLevel>(x =>
+                {
+                    x.Not = true;
+                    x.m_CharacterClass = HavocDragon.ToReference<BlueprintCharacterClassReference>();
+                    x.Level = 20;
 
+                });
                 void AddToClasslLevelEntry(BlueprintProgression progression, int level, BlueprintFeature element)
                 {
 
@@ -344,6 +358,7 @@ namespace LevelableAivu.Create
 
                         progression.LevelEntries.First(x => x.Level == level).m_Features.Add(element.ToReference<BlueprintFeatureBaseReference>());
                     }
+                    Main.LogPatch($"Progression {progression.NameSafe()} patched: ", element);
 
                 }
 
@@ -480,24 +495,29 @@ namespace LevelableAivu.Create
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 17, AivuDragonfear);
                 AddToClasslLevelEntry(HavocDragonProgressionAdded, 18, AzataDragonDR1);
                 //AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 6, AivuSizeUpToLarge);
-                AddToClasslLevelEntry(HavocDragonProgressionAdded, 6, HeroicAura);
-               // AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
+                //AddToClasslLevelEntry(HavocDragonProgressionAdded, 6, HeroicAura);
+               AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 7, HeroicAura);
+               AddToClasslLevelEntry(HavocDragonProgressionAdded, 27, HeroicAura);
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 8, AzataDragonDR2);
+                AddToClasslLevelEntry(HavocDragonProgressionAdded, 28, AzataDragonDR2);
 
 
                 AddToClasslLevelEntry(HavocDragonT2ProgressionAdded, 10, AzataDragonDR3);
+                AddToClasslLevelEntry(HavocDragonProgressionAdded, 30, AzataDragonDR3);
 
                 HavocDragonProgressionAdded.m_Classes = new BlueprintProgression.ClassWithLevel[] { new BlueprintProgression.ClassWithLevel { m_Class = HavocDragon.ToReference<BlueprintCharacterClassReference>() } };
 
                 HavocDragonT2ProgressionAdded.m_Classes = new BlueprintProgression.ClassWithLevel[] { new BlueprintProgression.ClassWithLevel { m_Class = MythicHavocDragon.ToReference<BlueprintCharacterClassReference>() } };
 
+              
+                HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class = HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class.Append(HavocDragon.ToReference<BlueprintCharacterClassReference>()).ToArray();
+                HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class = HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class.Append(MythicHavocDragon.ToReference<BlueprintCharacterClassReference>()).ToArray();
 
-                HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class = HavocBreathLoaded.Components.OfType<ContextRankConfig>().FirstOrDefault().m_Class.AppendToArray(HavocDragon.ToReference<BlueprintCharacterClassReference>(), MythicHavocDragon.ToReference<BlueprintCharacterClassReference>());
                 BlueprintRoot root = Resources.GetBlueprint<BlueprintRoot>("2d77316c72b9ed44f888ceefc2a131f6");
                 if (ModSettings.Settings.settings.GroupIsDisabled())
                     return;
                 root.Progression.m_PetClasses = root.Progression.m_PetClasses.AddToArray(HavocDragon.ToReference<BlueprintCharacterClassReference>());
-                root.Progression.m_PetClasses = root.Progression.m_PetClasses.AddToArray(MythicHavocDragon.ToReference<BlueprintCharacterClassReference>());
+               
             }
 
 
