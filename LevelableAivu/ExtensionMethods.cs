@@ -19,6 +19,7 @@ using System.Linq;
 using LevelableAivu.Utilities;
 using UnityEngine;
 using static Kingmaker.Blueprints.Classes.Prerequisites.Prerequisite;
+using BlueprintCore.Utils;
 
 namespace LevelableAivu{
     static class ExtentionMethods
@@ -434,12 +435,7 @@ namespace LevelableAivu{
             return clone;
         }
 
-        public static void SetNameDescription(this BlueprintUnitFact feature, String displayName, String description)
-        {
-            feature.SetName(Helpers.CreateString(feature.name + ".Name", displayName));
-            feature.SetDescription(description);
-        }
-
+        
         public static void SetNameDescription(this BlueprintUnitFact feature, BlueprintUnitFact other)
         {
             feature.m_DisplayName = other.m_DisplayName;
@@ -453,13 +449,10 @@ namespace LevelableAivu{
 
         public static void SetName(this BlueprintUnitFact feature, String name)
         {
-            feature.m_DisplayName = Helpers.CreateString(feature.name + ".Name", name);
+            feature.m_DisplayName = LocalizationTool.CreateString(feature.name + ".Name", name,false);
         }
 
-        public static void SetDescriptionUntagged(this BlueprintUnitFact feature, String description)
-        {
-            feature.m_Description = Helpers.CreateString(feature.name + ".Description", description);
-        }
+        
 
         public static void SetDescription(this BlueprintUnitFact feature, LocalizedString description)
         {
@@ -470,7 +463,7 @@ namespace LevelableAivu{
         public static void SetDescription(this BlueprintUnitFact feature, String description)
         {
             var taggedDescription = DescriptionTools.TagEncyclopediaEntries(description);
-            feature.m_Description = Helpers.CreateString(feature.name + ".Description", taggedDescription);
+            feature.m_Description = LocalizationTool.CreateString(feature.name + ".Description", taggedDescription, false);
         }
 
         public static bool HasFeatureWithId(this LevelEntry level, String id)

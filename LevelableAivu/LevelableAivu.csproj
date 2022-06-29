@@ -34,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <InstallDir Condition=" '$(InstallDir)' == '' ">C:\Program Files (x86)\Steam\steamapps\common\Pathfinder Second Adventure\Wrath_Data\Managed</InstallDir>
@@ -56,6 +57,9 @@
     </Reference>
     <Reference Include="Assembly-CSharp_public">
       <HintPath>..\lib\Assembly-CSharp_public.dll</HintPath>
+    </Reference>
+    <Reference Include="BlueprintCore, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WW-Blueprint-Core.2.0.4\lib\net472\BlueprintCore.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
@@ -99,7 +103,7 @@
   <ItemGroup>
     <Compile Include="AivuSizeFix.cs" />
     <Compile Include="Attributes.cs" />
-    <Compile Include="Localization\MultiLocalizationPack.cs" />
+    <Compile Include="FixItemAccess.cs" />
     <Compile Include="VariableBaseSizeGetter.cs" />
     <Compile Include="FinishingTouches.cs" />
     <Compile Include="Config\Blueprints.cs" />
@@ -124,9 +128,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Config\Blueprints.json" />
     <EmbeddedResource Include="Config\Settings.json" />
-    <EmbeddedResource Include="Localization\LocalizationPack.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Include="BlueprintCore\changes.md" />
+    <None Include="BlueprintCore\LICENSE" />
+    <None Include="BlueprintCore\README.md" />
     <None Include="packages.config" />
     <None Include="Info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

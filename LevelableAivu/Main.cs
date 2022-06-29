@@ -35,12 +35,12 @@ namespace LevelableAivu
         {
             Log(message);
             Log(e.ToString());
-            PFLog.Mods.Error(message);
+            //PFLog.Mods.Error(message);
         }
         public static void Error(string message)
         {
             Log(message);
-            PFLog.Mods.Error(message);
+            //PFLog.Mods.Error(message);
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)

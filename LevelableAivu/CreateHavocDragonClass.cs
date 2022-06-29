@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using BlueprintCore.Blueprints.Configurators.Classes;
+using BlueprintCore.Utils;
+using HarmonyLib;
 using Kingmaker;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
@@ -124,12 +126,13 @@ namespace LevelableAivu.Create
 
             static void BuildHavocDragonClasses()
             {
+                
                 BlueprintUnit AivuUnitLoaded = Resources.GetBlueprint<BlueprintUnit>("32a037e97c3d5c54b85da8f639616c57");
                 AivuUsesMythixXPNew = Helpers.CreateBlueprint<BlueprintFeature>("AivuUsesMythicXP", x =>
                 {
 
-                    x.SetName("Aivu Mythic Powers");
-                    x.SetDescription("Aivu is amped up by Azata Mythic Power");
+                    //x.SetName("Aivu Mythic Powers");
+                    //x.SetDescription("Aivu is amped up by Azata Mythic Power");
                     x.Ranks = 1;
                     x.ReapplyOnLevelUp = true;
                     x.AddComponent(Helpers.Create<AddMechanicsFeature>(x =>
@@ -138,6 +141,9 @@ namespace LevelableAivu.Create
                     }));
 
                 });
+                FeatureConfigurator.For(AivuUsesMythixXPNew).SetDisplayName(LocalizationTool.CreateString("AivuUsesMythicXP.Name", "Aivu Mythic Powers")).SetDescription(LocalizationTool.CreateString("AivuUsesMythicXP.Desc", "Aivu is amped up by Azata Mythic Power")).Configure();
+                Main.LogPatch("Added",AivuUsesMythixXPNew);
+          
 
                 BlueprintAbility HavocBreathLoaded = Resources.GetBlueprint<BlueprintAbility>("42a9104e5cff51f46996d7d1ad65c0a6");
                 BlueprintFeature SmartBreathWeapon = Resources.GetBlueprint<BlueprintFeature>("491c677a0a602c34fbd9530ff53d6d4a");
@@ -159,12 +165,13 @@ namespace LevelableAivu.Create
                     x.DeactivateImmediately = true;
 
                 });
+                Main.LogPatch("Added", AivuDragonfearAbility);
                 BlueprintFeature AivuSizeUpToMedium = Resources.GetBlueprint<BlueprintFeature>("50853b0623b844ac86129db459907797");
                 AivuSizeUpToMedium.SetName("Aivu Size Up");
                 AivuSizeUpToMedium.SetDescription("Aivu Is Now Medium Size");
                 AivuSizeUpToMedium.HideInCharacterSheetAndLevelUp = false;
                 AivuSizeUpToMedium.HideInUI = false;
-
+                Main.LogPatch("Added", AivuSizeUpToMedium);
                 ChangeUnitSize mediumMechanic = AivuSizeUpToMedium.Components.OfType<ChangeUnitSize>().FirstOrDefault();
                 if (mediumMechanic != null)
                 {
@@ -215,9 +222,10 @@ namespace LevelableAivu.Create
 
 
                 });
+                Main.LogPatch("Added", AivuDragonfear);
                 HavocDragonSpellbookLoaded = Resources.GetBlueprint<BlueprintSpellbook>("778f544f8ed404649a261dce9d514655");
 
-                HavocDragonSpellbookLoaded.Name = Helpers.CreateString(HavocDragonSpellbookLoaded.name + ".Name", "Havoc Dragon");//This fixes a base game UI bug, it stays
+                HavocDragonSpellbookLoaded.Name = LocalizationTool.CreateString(HavocDragonSpellbookLoaded.name + ".Name", "Havoc Dragon", false);//This fixes a base game UI bug, it stays
                 HavocDragonSpellListNew = Helpers.CreateBlueprint<BlueprintSpellList>("HavocDragonSpellList", x =>
                 {
                     x.FilterBySchool = true;
@@ -230,13 +238,14 @@ namespace LevelableAivu.Create
                     x.SetName("");
                     x.SetDescription("");
                 });
+                Main.LogPatch("Added", HavocDragonProgressionAdded);
                 BlueprintProgression HavocDragonT2ProgressionAdded = Helpers.CreateBlueprint<BlueprintProgression>("HavocDragonProgress2", x =>
                 {
                     x.IsClassFeature = true;
                     x.SetName("");
                     x.SetDescription("");
                 });
-
+                Main.LogPatch("Added", HavocDragonT2ProgressionAdded);
                 BlueprintStatProgression saveHigh = Resources.GetBlueprint<BlueprintStatProgression>("ff4662bde9e75f145853417313842751");
                 BlueprintStatProgression bab = Resources.GetBlueprint<BlueprintStatProgression>("b3057560ffff3514299e8b93e7648a9d");
                 HavocDragon = Helpers.CreateBlueprint<BlueprintCharacterClass>("HavocDragonClass", bp =>
@@ -256,9 +265,9 @@ namespace LevelableAivu.Create
 
 
                     bp.HideIfRestricted = true;
-                    bp.LocalizedName = Helpers.CreateString(bp.name + ".Name", "Havoc Dragon");
-                    bp.LocalizedDescription = Helpers.CreateString(bp.name + "Desc.Name", "A dragon is a reptilelike creature, usually winged, with magical or unusual abilities");
-                    bp.LocalizedDescriptionShort = Helpers.CreateString(bp.name + "Desc.Name", "A dragon is a reptilelike creature, usually winged, with magical or unusual abilities");
+                    bp.LocalizedName = LocalizationTool.CreateString(bp.name + ".Name", "Havoc Dragon", false);
+                    bp.LocalizedDescription = LocalizationTool.CreateString(bp.name + "Desc.Name", "A dragon is a reptilelike creature, usually winged, with magical or unusual abilities", false);
+                    bp.LocalizedDescriptionShort = LocalizationTool.CreateString(bp.name + "Desc.Name", "A dragon is a reptilelike creature, usually winged, with magical or unusual abilities", false);
 
                     bp.SkillPoints = 6;
                     bp.m_SignatureAbilities = new BlueprintFeatureReference[] { };
@@ -277,7 +286,7 @@ namespace LevelableAivu.Create
 
 
                 });
-
+                Main.LogPatch("Added", HavocDragon);
                 BlueprintCharacterClass MythicHavocDragon = Helpers.CreateBlueprint<BlueprintCharacterClass>("HavocDragonClass20To40", bp =>
                 {
                     bp.HitDie = HavocDragon.HitDie;
@@ -288,7 +297,7 @@ namespace LevelableAivu.Create
                     bp.name = "HavocDragon20To40";
                     bp.m_Progression = HavocDragonT2ProgressionAdded.ToReference<BlueprintProgressionReference>();
                     bp.HideIfRestricted = true;
-                    bp.LocalizedName = Helpers.CreateString(bp.name + ".Name", "Mythic Havoc Dragon");
+                    bp.LocalizedName = LocalizationTool.CreateString(bp.name + ".Name", "Mythic Havoc Dragon", false);
                     bp.LocalizedDescription = HavocDragon.LocalizedDescription;
                     bp.LocalizedDescriptionShort = HavocDragon.LocalizedDescriptionShort;
 
@@ -304,13 +313,15 @@ namespace LevelableAivu.Create
 
                         x.m_Feature = AivuUsesMythixXPNew.ToReference<BlueprintFeatureReference>();
                     }));
+                    
                     bp.AddComponent(Helpers.Create<PrerequisiteClassLevel>(x =>
                     {
                         x.m_CharacterClass = HavocDragon.ToReference<BlueprintCharacterClassReference>();
                         x.Level = 20;
                     }));
+                    
                 });
-                
+                Main.LogPatch("Added", MythicHavocDragon);
                 HavocDragon.AddComponent<PrerequisiteClassLevel>(x =>
                 {
                     x.Not = true;
@@ -387,7 +398,7 @@ namespace LevelableAivu.Create
 
                 });
 
-
+                Main.LogPatch("Added", AzataDragonDR1);
                 #endregion
                 //End t1 block
                 #region Teir 2 Aivu Upgrades - MR 7 
@@ -411,6 +422,7 @@ namespace LevelableAivu.Create
 
 
                 });
+                Main.LogPatch("Added", AzataDragonDR2);
                 BlueprintFeature AivuSizeUpToLarge = Resources.GetBlueprint<BlueprintFeature>("600c4d652b6e4684a7a4b77946903c30");
                 AivuSizeUpToLarge.SetName("Aivu Size Up");
                 AivuSizeUpToLarge.SetDescription("Aivu Is Now Large Size");
@@ -440,7 +452,7 @@ namespace LevelableAivu.Create
                 }
                 BlueprintFeature HeroicAura = Resources.GetBlueprint<BlueprintFeature>("bb0be011191b77f418d2225399109f0c");
 
-
+                Main.LogPatch("Added", AzataDragonDR2);
 
 
 
@@ -468,6 +480,7 @@ namespace LevelableAivu.Create
 
 
 
+                Main.LogPatch("Added", AzataDragonDR3);
 
                 //int mediumLev = 2;
                 //int largeLev = 3;
@@ -517,6 +530,7 @@ namespace LevelableAivu.Create
                 if (ModSettings.Settings.settings.GroupIsDisabled())
                     return;
                 root.Progression.m_PetClasses = root.Progression.m_PetClasses.AddToArray(HavocDragon.ToReference<BlueprintCharacterClassReference>());
+                root.Progression.m_PetClasses = root.Progression.m_PetClasses.AddToArray(MythicHavocDragon.ToReference<BlueprintCharacterClassReference>());
                
             }
 

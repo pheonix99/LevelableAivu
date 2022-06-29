@@ -12,7 +12,7 @@ using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.UnitLogic.Mechanics.Properties;
 using Kingmaker.Utility;
 using LevelableAivu.Config;
-using LevelableAivu.Localization;
+
 using ModKit;
 using System;
 using System.Collections.Generic;
@@ -57,32 +57,7 @@ namespace LevelableAivu
         }
 
 
-        public static LocalizedString CreateString(string simpleName, string text, Locale locale = Locale.enGB, bool shouldProcess = false)
-        {
-            // See if we used the text previously.
-            // (It's common for many features to use the same localized text.
-            // In that case, we reuse the old entry instead of making a new one.)
-            string strippedText = text.StripHTML().StripEncyclopediaTags();
-            MultiLocalizationPack.MultiLocaleString multiLocalized;
-            if (ModSettings.ModLocalizationPack.TryGetText(strippedText, out multiLocalized))
-            {
-                return multiLocalized.LocalizedString;
-            }
-#if false
-            if (ModSettings.ModLocalizationPack.Ids.TryGetValue(id, out multiLocalized)) {
-#if DEBUG
-                multiLocalized.SetText(locale, text.StripHTML().StripEncyclopediaTags());
-                multiLocalized.ProcessTemplates = shouldProcess;
-#endif
-                return multiLocalized.LocalizedString;
-            }
-#endif
-            multiLocalized = new MultiLocalizationPack.MultiLocaleString(simpleName, strippedText, shouldProcess, locale);
-            Main.LogDebug($"WARNING: Generated New Localizaed String: {multiLocalized.Key}:{multiLocalized.SimpleName}");
-            ModSettings.ModLocalizationPack.AddString(multiLocalized);
-            return multiLocalized.LocalizedString;
-        }
-
+       
         public static ContextRankConfig CreateContextRankConfig(ContextRankBaseValueType baseValueType = ContextRankBaseValueType.CasterLevel,
     ContextRankProgression progression = ContextRankProgression.AsIs,
     AbilityRankType type = AbilityRankType.Default,
