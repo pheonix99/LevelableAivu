@@ -13,7 +13,7 @@ namespace LevelableAivu
     
 
     [HarmonyPatch(typeof(LevelUpController), MethodType.Constructor)]
-    [HarmonyPatch(new Type[] { typeof(UnitEntityData), typeof(bool), typeof(LevelUpState.CharBuildMode) })]
+    [HarmonyPatch(new Type[] { typeof(UnitEntityData), typeof(bool), typeof(LevelUpState.CharBuildMode), typeof(bool) })]
     [HarmonyPriority(9999)]
     internal static class LevelUpController_ctor_Patch
     {
