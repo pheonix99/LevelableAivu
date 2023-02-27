@@ -29,6 +29,16 @@ If you're interested in contributing, see [How to Contribute](https://wittlewolf
 
 For usage see [Getting Started](https://wittlewolfie.github.io/WW-Blueprint-Core/articles/intro.html).
 
+## Mods Using BPCore
+
+Not exhaustive but check out these mods:
+
+* [Character Options+](https://github.com/WittleWolfie/CharacterOptionsPlus)
+* [Tome of the Firebird](https://github.com/pheonix99/TomeOfTheFirebird)
+* [Added Feats](https://github.com/Telyl/AddedFeats)
+* [Medium Class](https://github.com/Telyl/MediumClass)
+* [Martial Excellence](https://github.com/Envibel/MartialExcellence)
+
 ## Features
 
 ### Blueprint Configurators
@@ -63,10 +73,10 @@ For example, the `FeatureConfigurator` exposes a method `AddPrerequisiteCharacte
 // Parameters:
 //   characterClass:
 //     Blueprint of type BlueprintCharacterClass. You can pass in the blueprint using:
-//     • A blueprint instance –
-//     • A blueprint reference –
-//     • A blueprint id as a string, Guid, or BlueprintGuid –
-//     • A blueprint name registered with BlueprintTool –
+//     â€¢ A blueprint instance â€“
+//     â€¢ A blueprint reference â€“
+//     â€¢ A blueprint id as a string, Guid, or BlueprintGuid â€“
+//     â€¢ A blueprint name registered with BlueprintTool â€“
 //     See Blueprint for more details.
 //
 //   merge:
@@ -78,10 +88,10 @@ For example, the `FeatureConfigurator` exposes a method `AddPrerequisiteCharacte
 //     to ComponentMerge.Fail.
 //
 // Remarks:
-//     • Used by
-//     • AdvancedWeaponTraining1 –3aa4cbdd4af5ba54888b0dc7f07f80c4
-//     • OracleRevelationSoulSiphon –226c053a75fd7c34cab1b493f5847787
-//     • WreckingBlowsFeature –5bccc86dd1f187a4a99f092dc054c755
+//     â€¢ Used by
+//     â€¢ AdvancedWeaponTraining1 â€“3aa4cbdd4af5ba54888b0dc7f07f80c4
+//     â€¢ OracleRevelationSoulSiphon â€“226c053a75fd7c34cab1b493f5847787
+//     â€¢ WreckingBlowsFeature â€“5bccc86dd1f187a4a99f092dc054c755
 public TBuilder AddPrerequisiteClassLevel(
     Blueprint<BlueprintCharacterClassReference> characterClass,
     int level,
@@ -129,6 +139,34 @@ Util classes provide type builders, constant references, tools, and more.
 
 Tool classes include methods for common operations. These vary from operations like `CommonTool#Append<>()` for concatening arrays to `BlueprintTool.GetRef<T>()` which creates a blueprint reference directly, without fetching the blueprint.
 
+#### Text
+
+`LocalizationTool` uses a JSON file to define in-game text with support for localization and encyclopedia tagging:
+
+```json
+{
+  "Key": "MagicalAptitude.Name",
+  // Don't process this since it is just a name. Without this it might create strange artifacts by trying to create
+  // links to encycolpedia pages.
+  "ProcessTemplates": false,
+  "enGB": "Magical Aptitude",
+  "deDE": "Magische Begabung"
+},
+{
+  "Key": "MagicalAptitude.Description",
+  "enGB": "You get a +2 bonus on all Spellcraft and Use Magic Device skill checks. If you have 10 or more ranks in one of these skills, the bonus increases to +4 for that skill."
+}
+```
+
+In BPCore APIs you can reference the strings using the key:
+
+```C#
+FeatureConfigurator.New(FeatName, FeatGuid)
+  .SetDisplayName("MagicalAptitude.Name")
+  .SetDescription("MagicalAptitude.Description")
+  .Configure();
+```
+
 #### Logging
 
 `LogWrapper` exposes the game's logger for mod usage. This logs output to the game logs which can be viewed using [Remote Console](https://github.com/OwlcatOpenSource/RemoteConsole/releases).
@@ -169,4 +207,4 @@ BlueprintCore is available as a [NuGet package](https://www.nuget.org/packages/W
 # Interested in modding?
 
 * Check out the [OwlcatModdingWiki](https://github.com/WittleWolfie/OwlcatModdingWiki/wiki).
-* Join us on [Discord](https://discord.gg/zHbMuYT6).
+* Join us on [Discord](https://discord.com/invite/wotr).
