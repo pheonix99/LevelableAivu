@@ -1,7 +1,11 @@
 ﻿A mod to make Aivu's levelups controllable.
 
-Changelog:
-1.2.3
+# Changelog:
+
+## 1.2.5
+2.1 Beta release
+
+## 1.2.3
 Fixed for levelups past 20 being broken.
 Fix for inability to wear animal companion gloves.
 Made ExpandedContent drake companions able to wear them while I was at it.
