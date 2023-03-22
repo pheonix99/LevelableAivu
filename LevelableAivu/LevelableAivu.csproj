@@ -46,7 +46,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" />
-    <PackageReference Include="WW-Blueprint-Core" Version="2.7.8" />
+    <PackageReference Include="WW-Blueprint-Core" Version="2.8.0" />
   </ItemGroup>
   <!-- DLL Merging -->
   <Target Name="ILRepack" AfterTargets="Build">
@@ -190,5 +190,4 @@
     <Message Text="Copying zip  to $(OutputPath)\$(AssemblyName).zip" Importance="High" />
     <ZipDirectory SourceDirectory="$(OutputPath)\$(AssemblyName)" DestinationFile="C:\ModReleaseCandidates\$(AssemblyName).zip" Overwrite="true" />
   </Target>
-
 </Project>

@@ -10,20 +10,7 @@ namespace LevelableAivu
     {
         public static readonly Dictionary<BlueprintGuid, SimpleBlueprint> ModBlueprints = new Dictionary<BlueprintGuid, SimpleBlueprint>();
 
-        internal static object GetBlueprint<T>()
-        {
-            throw new NotImplementedException();
-        }
-#if false
-        public static IEnumerable<T> GetBlueprints<T>() where T : BlueprintScriptableObject {
-            if (blueprints == null) {
-                var bundle = ResourcesLibrary.s_BlueprintsBundle;
-                blueprints = bundle.LoadAllAssets<BlueprintScriptableObject>();
-                //blueprints = Kingmaker.Cheats.Utilities.GetScriptableObjects<BlueprintScriptableObject>();
-            }
-            return blueprints.Concat(ResourcesLibrary.s_LoadedBlueprints.Values).OfType<T>().Distinct();
-        }
-#endif
+
         public static T GetModBlueprint<T>(string name) where T : SimpleBlueprint
         {
             var assetId = ModSettings.Blueprints.GetGUID(name);
@@ -46,11 +33,7 @@ namespace LevelableAivu
         {
             AddBlueprint(blueprint, blueprint.AssetGuid);
         }
-        public static void AddBlueprint([NotNull] SimpleBlueprint blueprint, string assetId)
-        {
-            var Id = BlueprintGuid.Parse(assetId);
-            AddBlueprint(blueprint, Id);
-        }
+
         public static void AddBlueprint([NotNull] SimpleBlueprint blueprint, BlueprintGuid assetId)
         {
             var loadedBlueprint = ResourcesLibrary.TryGetBlueprint(assetId);

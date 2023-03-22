@@ -2,6 +2,11 @@
 
 # Changelog:
 
+## 1.2.6
+
+Offical 2.1 release.
+Fix for heroism aura buff persisting overlong.
+
 ## 1.2.5
 2.1 Beta release
 

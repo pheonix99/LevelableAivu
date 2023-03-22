@@ -1,5 +1,8 @@
-﻿using BlueprintCore.Blueprints.Configurators.Classes;
+﻿using BlueprintCore.Blueprints.Configurators;
+using BlueprintCore.Blueprints.Configurators.Classes;
+using BlueprintCore.Blueprints.CustomConfigurators;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Utils;
 using HarmonyLib;
 using Kingmaker;
@@ -73,19 +76,28 @@ namespace LevelableAivu.Create
             private static void FixHeroismAuraSFX()
             {
 
-                var auraSource = Resources.GetBlueprint<BlueprintBuff>("17831f3fa25cf52458a34b0acc034b40");
-                var aoe = Resources.GetBlueprint<BlueprintAbilityAreaEffect>("ce6652b6fb8d1504181a9f3e2aa520e3");
-                var baseHeroism = Resources.GetBlueprint<BlueprintBuff>("87ab2fed7feaaff47b62a3320a57ad8d");
+                var auraSource = BlueprintTool.Get<BlueprintBuff>("17831f3fa25cf52458a34b0acc034b40");
+                var aoe = BlueprintTool.Get<BlueprintAbilityAreaEffect>("ce6652b6fb8d1504181a9f3e2aa520e3");
+                var baseHeroism = BlueprintTool.Get<BlueprintBuff>("87ab2fed7feaaff47b62a3320a57ad8d");
+
+               
+
                 auraSource.FxOnStart = auraSource.FxOnRemove;
-                var knockoff = Helpers.CreateBlueprint<BlueprintBuff>("AivuHeroismBuff", x=> {
-                    x.m_Flags = baseHeroism.m_Flags;
-                    x.m_DisplayName = baseHeroism.m_DisplayName;
-                    x.m_Description = baseHeroism.m_Description;
-                    x.m_DescriptionShort = baseHeroism.m_DescriptionShort;
-                    x.m_Icon = baseHeroism.m_Icon;
-                    x.Components = baseHeroism.Components;
-                    
-                });
+
+                
+
+                var knockoffConfig = BuffConfigurator.New("AivuHeroismBuff", GUIDs.AivuHeroismBuffGUID);
+                knockoffConfig.SetDisplayName(baseHeroism.m_DisplayName);
+                knockoffConfig.SetDescription(baseHeroism.m_Description);
+                knockoffConfig.SetFlags(baseHeroism.m_Flags);   
+                foreach(var c in baseHeroism.Components)
+                {
+                    knockoffConfig.AddComponent(c);
+                }
+                knockoffConfig.SetDescriptionShort(baseHeroism.m_DescriptionShort);
+                knockoffConfig.SetIcon(baseHeroism.m_Icon);
+                var knockoff = knockoffConfig.Configure();
+                
                 var applier = aoe.Components.OfType<AbilityAreaEffectBuff>().FirstOrDefault();
 
                 if (applier != null)
@@ -97,13 +109,8 @@ namespace LevelableAivu.Create
 
             private static void AddFlagsToAivu()
             {
-                BlueprintUnit AivuUnitLoaded = Resources.GetBlueprint<BlueprintUnit>("32a037e97c3d5c54b85da8f639616c57");
+                UnitConfigurator.For("32a037e97c3d5c54b85da8f639616c57").AddFacts(new List<Blueprint<BlueprintUnitFactReference>>() { AivuUsesMythixXPNew}).RemoveComponents(x=> x is LockEquipmentSlot y && y.m_SlotType == LockEquipmentSlot.SlotType.Armor).Configure();
 
-
-
-                AivuUnitLoaded.m_AddFacts = AivuUnitLoaded.m_AddFacts.AddToArray(AivuUsesMythixXPNew.ToReference<BlueprintUnitFactReference>());
-               
-                AivuUnitLoaded.RemoveComponents<LockEquipmentSlot>(x=>x.m_SlotType == LockEquipmentSlot.SlotType.Armor);
 
 
 
@@ -114,10 +121,10 @@ namespace LevelableAivu.Create
                 if (ModSettings.Settings.settings.GroupIsDisabled())
                     return;
 
-                BlueprintProgression AzataProgressionLoaded = Resources.GetBlueprint<BlueprintProgression>("9db53de4bf21b564ca1a90ff5bd16586");
-                BlueprintFeature T2PassToAivuFeatureLoaded = Resources.GetBlueprint<BlueprintFeature>("4d9785fa28ab443289497ccb05e49fe2");
-                BlueprintFeature T3PassToAivuFeatureLoaded = Resources.GetBlueprint<BlueprintFeature>("1bfc72ee31e349ab91991d14e1db471e");
-                BlueprintFeature T4PassToAivuFeatureLoaded = Resources.GetBlueprint<BlueprintFeature>("e0cd072417ac444a99e83eae51eea8df");
+                BlueprintProgression AzataProgressionLoaded = BlueprintTool.Get<BlueprintProgression>("9db53de4bf21b564ca1a90ff5bd16586");
+                BlueprintFeature T2PassToAivuFeatureLoaded = BlueprintTool.Get<BlueprintFeature>("4d9785fa28ab443289497ccb05e49fe2");
+                BlueprintFeature T3PassToAivuFeatureLoaded = BlueprintTool.Get<BlueprintFeature>("1bfc72ee31e349ab91991d14e1db471e");
+                BlueprintFeature T4PassToAivuFeatureLoaded = BlueprintTool.Get<BlueprintFeature>("e0cd072417ac444a99e83eae51eea8df");
                 AzataProgressionLoaded.LevelEntries.FirstOrDefault(x => x.Level == 3).m_Features.Remove(T2PassToAivuFeatureLoaded.ToReference<BlueprintFeatureBaseReference>());
 
                 AzataProgressionLoaded.LevelEntries.FirstOrDefault(x => x.Level == 5).m_Features.Remove(T3PassToAivuFeatureLoaded.ToReference<BlueprintFeatureBaseReference>());
@@ -128,7 +135,7 @@ namespace LevelableAivu.Create
             static void BuildHavocDragonClasses()
             {
                 
-                BlueprintUnit AivuUnitLoaded = Resources.GetBlueprint<BlueprintUnit>("32a037e97c3d5c54b85da8f639616c57");
+                BlueprintUnit AivuUnitLoaded = BlueprintTool.Get<BlueprintUnit>("32a037e97c3d5c54b85da8f639616c57");
                 AivuUsesMythixXPNew = Helpers.CreateBlueprint<BlueprintFeature>("AivuUsesMythicXP", x =>
                 {
 
@@ -146,12 +153,12 @@ namespace LevelableAivu.Create
                 Main.LogPatch("Added",AivuUsesMythixXPNew);
           
 
-                BlueprintAbility HavocBreathLoaded = Resources.GetBlueprint<BlueprintAbility>("42a9104e5cff51f46996d7d1ad65c0a6");
-                BlueprintFeature SmartBreathWeapon = Resources.GetBlueprint<BlueprintFeature>("491c677a0a602c34fbd9530ff53d6d4a");
-                BlueprintBuff DragonFearIconSourceLoaded = Helpers.GetBlueprint<BlueprintBuff>("c0e8f767f87ac354495865ce3dc3ee46");
+                BlueprintAbility HavocBreathLoaded = BlueprintTool.Get<BlueprintAbility>("42a9104e5cff51f46996d7d1ad65c0a6");
+                BlueprintFeature SmartBreathWeapon = BlueprintTool.Get<BlueprintFeature>("491c677a0a602c34fbd9530ff53d6d4a");
+                BlueprintBuff DragonFearIconSourceLoaded = BlueprintTool.Get<BlueprintBuff>("c0e8f767f87ac354495865ce3dc3ee46");
 
 
-                BlueprintBuff DragonFearBuffLoaded = Helpers.GetBlueprint<BlueprintBuff>("3d01fc3ae83ca834ba645013315aaec0");
+                BlueprintBuff DragonFearBuffLoaded = BlueprintTool.Get<BlueprintBuff>("3d01fc3ae83ca834ba645013315aaec0");
 
 
                 BlueprintActivatableAbility AivuDragonfearAbility = Helpers.CreateBlueprint<BlueprintActivatableAbility>("AivuDragonfearToggle", x =>
@@ -167,7 +174,7 @@ namespace LevelableAivu.Create
 
                 });
                 Main.LogPatch("Added", AivuDragonfearAbility);
-                BlueprintFeature AivuSizeUpToMedium = Resources.GetBlueprint<BlueprintFeature>("50853b0623b844ac86129db459907797");
+                BlueprintFeature AivuSizeUpToMedium = BlueprintTool.Get<BlueprintFeature>("50853b0623b844ac86129db459907797");
                 AivuSizeUpToMedium.SetName("Aivu Size Up");
                 AivuSizeUpToMedium.SetDescription("Aivu Is Now Medium Size");
                 AivuSizeUpToMedium.HideInCharacterSheetAndLevelUp = false;
@@ -224,7 +231,7 @@ namespace LevelableAivu.Create
 
                 });
                 Main.LogPatch("Added", AivuDragonfear);
-                HavocDragonSpellbookLoaded = Resources.GetBlueprint<BlueprintSpellbook>("778f544f8ed404649a261dce9d514655");
+                HavocDragonSpellbookLoaded = BlueprintTool.Get<BlueprintSpellbook>("778f544f8ed404649a261dce9d514655");
 
                 HavocDragonSpellbookLoaded.Name = LocalizationTool.CreateString(HavocDragonSpellbookLoaded.name + ".Name", "Havoc Dragon", false);//This fixes a base game UI bug, it stays
                 HavocDragonSpellListNew = Helpers.CreateBlueprint<BlueprintSpellList>("HavocDragonSpellList", x =>
@@ -247,8 +254,8 @@ namespace LevelableAivu.Create
                     x.SetDescription("");
                 });
                 Main.LogPatch("Added", HavocDragonT2ProgressionAdded);
-                BlueprintStatProgression saveHigh = Resources.GetBlueprint<BlueprintStatProgression>("ff4662bde9e75f145853417313842751");
-                BlueprintStatProgression bab = Resources.GetBlueprint<BlueprintStatProgression>("b3057560ffff3514299e8b93e7648a9d");
+                BlueprintStatProgression saveHigh = BlueprintTool.Get<BlueprintStatProgression>("ff4662bde9e75f145853417313842751");
+                BlueprintStatProgression bab = BlueprintTool.Get<BlueprintStatProgression>("b3057560ffff3514299e8b93e7648a9d");
                 HavocDragon = Helpers.CreateBlueprint<BlueprintCharacterClass>("HavocDragonClass", bp =>
                 {
                     bp.HitDie = Kingmaker.RuleSystem.DiceType.D12;

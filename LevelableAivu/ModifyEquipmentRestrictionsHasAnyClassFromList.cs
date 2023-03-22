@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BlueprintCore.Utils;
+using HarmonyLib;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Items.Armors;
@@ -18,7 +19,7 @@ namespace LevelableAivu
     {
         static void Postfix(ref bool __result, EquipmentRestrictionClass __instance, UnitDescriptor unit)
         {
-            BlueprintCharacterClass companion = Helpers.GetBlueprint<BlueprintCharacterClass>("01a754e7c1b7c5946ba895a5ff0faffc");
+            BlueprintCharacterClass companion = BlueprintTool.Get<BlueprintCharacterClass>("01a754e7c1b7c5946ba895a5ff0faffc");
             BlueprintFeature AivuUsesMythicXPNow = Resources.GetModBlueprint<BlueprintFeature>("AivuUsesMythicXP");
             if (__instance.OwnerBlueprint is BlueprintItemEquipment or BlueprintItemArmor)
             {
@@ -45,7 +46,7 @@ namespace LevelableAivu
 
         static void Postfix(ref bool __result, EquipmentRestrictionHasAnyClassFromList __instance, UnitDescriptor unit)
         {
-            var dragon = Helpers.GetBlueprint<BlueprintCharacterClass>("01a754e7c1b7c5946ba895a5ff0faffc").ToReference<BlueprintCharacterClassReference> ();
+            var dragon = BlueprintTool.Get<BlueprintCharacterClass>("01a754e7c1b7c5946ba895a5ff0faffc").ToReference<BlueprintCharacterClassReference> ();
            
             BlueprintFeature AivuUsesMythicXPNow = Resources.GetModBlueprint<BlueprintFeature>("AivuUsesMythicXP");
             if (__instance.OwnerBlueprint is BlueprintItemEquipment or BlueprintItemArmor)
