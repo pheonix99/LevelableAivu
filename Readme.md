@@ -2,6 +2,12 @@
 
 # Changelog:
 
+
+## 1.2.7
+
+Official 2.2 release
+
+
 ## 1.2.6
 
 Offical 2.1 release.
